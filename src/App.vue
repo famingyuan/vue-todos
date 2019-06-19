@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="test">
     <view class="title">{{title}} -- {{date}}</view>
   </div>
 </template>
@@ -11,6 +11,7 @@ export default {
       title: "this is title",
       date: new Date().getTime()
     };
+    
   }
 };
 </script>
