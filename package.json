@@ -1,0 +1,20 @@
+{
+  "name": "todos",
+  "version": "1.0.0",
+  "description": "used for learning vue basic example: TODO",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    'dev': "webpack --config webpack.config.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "css-loader": "^3.0.0",
+    "webpack": "^4.34.0"
+  },
+  "devDependencies": {
+    "vue": "^2.6.10",
+    "vue-loader": "^15.7.0"
+  }
+}
