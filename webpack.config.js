@@ -19,7 +19,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 // 用于清空某些目录
-const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 
 const isDev = process.env.NODE_ENV === 'production' ? false : true;
@@ -190,10 +190,22 @@ if (isDev) {
     config.mode = 'production';
 
     // webpack4+ 已经 移除
-    // config.plugins.push(new webpack.optimize.CommonsChunkPlugin({
-    //     // 必须与上面的 字段名 相同
-    //     name:'vendor'
-    // }));
+    /**
+     * 
+     config.plugins.push(
+        new webpack.optimize.CommonsChunkPlugin({
+            // 必须与上面的 字段名 相同
+            name: 'vendor'
+        }),
+        new webpack.optimize.CommonsChunkPlugin({
+            // runtime 用于存放webpack自身相关的 runtime没有在上面生成
+            // 新模块加入时 插入模块ID变更发生变化， hash发生变化，所以采用该方式规避
+            name: 'runtime'
+        })
+    );
+     * 
+     */
+    
     // config.optimization.splitChunks instead.
     // config.optimization = {
     //     splitChunks: {
