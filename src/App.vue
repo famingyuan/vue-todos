@@ -1,6 +1,6 @@
 <template>
   <div id="test">
-    <view class="title">{{title}} -- {{date}}</view>
+    <div class="title">{{title}} -- {{date}}</div>
   </div>
 </template>
 
@@ -8,7 +8,7 @@
 export default {
   data() {
     return {
-      title: "this is title",
+      title: "this is title2",
       date: new Date().getTime()
     };
     

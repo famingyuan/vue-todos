@@ -1,0 +1,10 @@
+{
+    // babel-preset-env
+    "presets": ["@babel/preset-env"],
+    "plugins":[
+        // 默认情况下 不会处理vue中的jsx代码，如果需要的话 ，则需要配置该插件
+        // babel-plugin-transform-vue-jsx
+        // babel-plugin-syntax-jsx
+        "transform-vue-jsx"
+    ]
+}

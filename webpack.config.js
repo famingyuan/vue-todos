@@ -7,11 +7,19 @@ const path = require('path');
 const webpack = require('webpack');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 // 下面这段 等同上方这个
-const {_VueLoaderPlugin} = require('vue-loader');
+const { _VueLoaderPlugin } = require('vue-loader');
 
+// 
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+const isDev = process.env.NODE_ENV === 'production' ? false : true;
+
+console.log('IS_DEV = ' + isDev)
 
 const config = {
-    mode: 'development',
+    target: 'web',
+    // mode: 'development',
+    // 指定当前项目有哪些编译入口
     entry: path.resolve(__dirname, 'src/index.js'),
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -20,15 +28,30 @@ const config = {
     module: {
         rules: [
             {
-                test: /\.vue/,
+                test: /\.vue/i,
                 loader: 'vue-loader'
             },
             // // this will apply to both plain `.js` files
             // // AND `<script>` blocks in `.vue` files
             {
                 test: /\.js$/,
-                loader: 'babel-loader',
-                exclude: [/node_modules/]
+                exclude: [/node_modules/],
+                use: {
+                    loader: 'babel-loader',
+                    // dev 编译时 可能不会对语法进行转换， production时 将转换
+                    // options: {
+                    //     // 务必配置或者使用 babelrc
+                    //     presets: ['@babel/preset-env']
+                    // }
+                }
+            },
+            // 对jsx使用 babel-loader处理 
+            {
+                test: /\.jsx$/,
+                exclude: [/node_modules/],
+                use: {
+                    loader: 'babel-loader'
+                }
             },
 
             {
@@ -38,6 +61,13 @@ const config = {
                     // vue-style-loader 和 style-loader 区别不大，只是在SSR 时 有别的额外操作
                     'vue-style-loader',
                     'css-loader',
+                    {
+                        loader:'postcss-loader',
+                        options:{
+                            // 默认使用 less-loader生成的sourceMap 而不在自己生成
+                            sourceMap:true
+                        }
+                    },
                     'less-loader'
                 ]
             },
@@ -52,7 +82,7 @@ const config = {
                 ]
             },
             {
-                test: /\.(jpg|jpeg|png|gif|svg)$/,
+                test: /\.(jpg|jpeg|png|gif|svg)$/i,
                 use: [
                     {
                         // 使用url-loader 会根据 limit ，小于的，则使用base64 ,大于的 则交给 file-loader 进行管理文件（转存、hash命名）
@@ -67,9 +97,50 @@ const config = {
         ]
     },
     plugins: [
+        new webpack.DefinePlugin({
+            // 用来定义在编译时使用的全局变量 以实现编译时 针对production或者development版本做不同的编译处理
+            // 在我们的代码中 也可以使用 process.env
+            // webpack 可能根据环境变量 打包不同的vue or 其它
+            'process.env': {
+                // 必须是字符串 且 可以转义为JS语句
+                NODE_ENV: isDev ? '"development"' : '"production"',
+            }
+            // or 'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+        }),
+
+        new HtmlWebpackPlugin({
+            // 默认情况下 生成 dist/index.html 文件
+            // 也可以单独指定采用哪个模板html作为基础 加入相应的js、css
+            template: './src/default.html'  // 模板
+        }),
         // 必须要加载该插件才能解析.VUE
         new VueLoaderPlugin()
     ]
 };
+
+if (isDev) {
+    // 比较准确和快
+    config.devtool = '#cheap-module-source-map';
+    config.devServer = {
+        port: 8000,
+        host: '0.0.0.0',// localhost 或者其他ip可以访问
+        overlay: {
+            errors: true // webpack 编译出错 可以在网页上看到
+        },
+        // 实现热更新 实现修改组件 只更新部分区域 而不需要重新刷新整个页面
+        hot: true,
+        // open:true
+        // 用于适配 不满足路由的 默认映射地址 如果不配置 则不加这个属性 否则可能报错
+        // historyFallback:{
+
+        // }
+    }
+    // 热加载功能  vue-loader 已经处理了 热加载细节
+    // 需要自定义 热加载过程 ，但是vue-loader已经处理了 
+    config.plugins.push(new webpack.HotModuleReplacementPlugin(), new webpack.NoEmitOnErrorsPlugin);
+}else{
+    config.mode='production';
+}
+
 
 module.exports = config;
