@@ -1,15 +1,18 @@
 
 // 参考文档
 // 1. https://juejin.im/entry/5a97b0eaf265da237b217f59
-// 2. 
+// 2. https://vue-loader.vuejs.org/zh/guide/#%E6%89%8B%E5%8A%A8%E8%AE%BE%E7%BD%AE
 
 const path = require('path');
 const webpack = require('webpack');
+// from ORG site
+// https://vue-loader.vuejs.org/zh/guide/#%E6%89%8B%E5%8A%A8%E8%AE%BE%E7%BD%AE
+
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 // 下面这段 等同上方这个
 const { _VueLoaderPlugin } = require('vue-loader');
 
-// 
+// 用于生成html模板文件或者将资源自动添加到指定的模板文件中
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const isDev = process.env.NODE_ENV === 'production' ? false : true;
@@ -111,7 +114,7 @@ const config = {
         new HtmlWebpackPlugin({
             // 默认情况下 生成 dist/index.html 文件
             // 也可以单独指定采用哪个模板html作为基础 加入相应的js、css
-            template: './src/default.html'  // 模板
+            // template: './src/default.html'  // 模板
         }),
         // 必须要加载该插件才能解析.VUE
         new VueLoaderPlugin()
@@ -128,6 +131,7 @@ if (isDev) {
             errors: true // webpack 编译出错 可以在网页上看到
         },
         // 实现热更新 实现修改组件 只更新部分区域 而不需要重新刷新整个页面
+        // 如果是配置文件变更了 则需要重新 run dev
         hot: true,
         // open:true
         // 用于适配 不满足路由的 默认映射地址 如果不配置 则不加这个属性 否则可能报错
