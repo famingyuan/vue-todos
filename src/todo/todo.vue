@@ -24,7 +24,7 @@
 <style lang="less" scoped>
 .todo-wrapper {
   padding: 20px;
-  background: #fff;
+  background: #efefef;
   box-shadow: 0 0 3px 4px #f3f3f3;
   position: relative;
   z-index: 22;

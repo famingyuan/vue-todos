@@ -15,6 +15,13 @@ const { _VueLoaderPlugin } = require('vue-loader');
 // 用于生成html模板文件或者将资源自动添加到指定的模板文件中
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+// 用于将css单独打包抽离
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
+// 用于清空某些目录
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+
+
 const isDev = process.env.NODE_ENV === 'production' ? false : true;
 
 console.log('IS_DEV = ' + isDev)
@@ -26,7 +33,7 @@ const config = {
     entry: path.resolve(__dirname, 'src/index.js'),
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'bundle.js'
+        filename: 'bundle.[hash:8].js'
     },
     module: {
         rules: [
@@ -56,24 +63,41 @@ const config = {
                     loader: 'babel-loader'
                 }
             },
-
             {
                 test: /\.less$/,
                 // 倒序 ， less-loader转成CSS , css-loader 提取 ， vue-style-loader 写入
                 use: [
                     // vue-style-loader 和 style-loader 区别不大，只是在SSR 时 有别的额外操作
-                    'vue-style-loader',
-                    'css-loader',
+                    // 'vue-style-loader',
                     {
-                        loader:'postcss-loader',
-                        options:{
+                        loader: MiniCssExtractPlugin.loader,
+                        options: {
+                            // 开发环境 启用热更新
+                            hmr: process.env.NODE_ENV === 'development',
+                            // if hmr does not work, this is a forceful method.
+                            // 所以如果总是刷新整个页面 则考虑是否取消掉该选项
+                            reloadAll: true,
+                        },
+                    },
+                    // MiniCssExtractPlugin 是把css抽离 并写入单个文件
+                    // vue-style-loader or style-loader 都是将css编译成JS 执行时 写入页面
+                    // 两者 二选一
+                    //=========================
+
+                    {
+                        loader: 'css-loader'
+                    },
+                    {
+                        loader: 'postcss-loader',
+                        options: {
                             // 默认使用 less-loader生成的sourceMap 而不在自己生成
-                            sourceMap:true
+                            sourceMap: true
                         }
                     },
                     'less-loader'
                 ]
             },
+
             {
                 test: /\.css$/,
                 // css-loader用来解析css文件，一般解析css中的@import和url()两部分,
@@ -100,6 +124,8 @@ const config = {
         ]
     },
     plugins: [
+        // 清空dist目录 每次打包时
+        new CleanWebpackPlugin(),
         new webpack.DefinePlugin({
             // 用来定义在编译时使用的全局变量 以实现编译时 针对production或者development版本做不同的编译处理
             // 在我们的代码中 也可以使用 process.env
@@ -111,6 +137,12 @@ const config = {
             // or 'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
         }),
 
+        new MiniCssExtractPlugin({
+            // Options similar to the same options in webpackOptions.output
+            // both options are optional
+            filename: isDev ? '[name].css' : '[name].[hash:8].css',
+            chunkFilename: isDev ? '[id].css' : '[id].[hash:8].css',
+        }),
         new HtmlWebpackPlugin({
             // 默认情况下 生成 dist/index.html 文件
             // 也可以单独指定采用哪个模板html作为基础 加入相应的js、css
@@ -122,6 +154,7 @@ const config = {
 };
 
 if (isDev) {
+
     // 比较准确和快
     config.devtool = '#cheap-module-source-map';
     config.devServer = {
@@ -139,11 +172,34 @@ if (isDev) {
 
         // }
     }
+
+    // 添加具体的规则 开发环境 less转换成css之后 进行postcss 指定相应的处理
+
     // 热加载功能  vue-loader 已经处理了 热加载细节
     // 需要自定义 热加载过程 ，但是vue-loader已经处理了 
     config.plugins.push(new webpack.HotModuleReplacementPlugin(), new webpack.NoEmitOnErrorsPlugin);
-}else{
-    config.mode='production';
+} else {
+    // 用于将常用的库 单独打包，实现长缓存 避免业务代码更新 导致hash变更
+    config.entry = {
+        app: path.resolve(__dirname, 'src/index.js'),
+        vendor: ['vue']
+    }
+    // production环境必须使用 chunkhash
+    // hash 为所有文件的hash ， trunkhash 为单个
+    config.output.filename = '[name].[chunkhash:8].js';
+    config.mode = 'production';
+
+    // webpack4+ 已经 移除
+    // config.plugins.push(new webpack.optimize.CommonsChunkPlugin({
+    //     // 必须与上面的 字段名 相同
+    //     name:'vendor'
+    // }));
+    // config.optimization.splitChunks instead.
+    // config.optimization = {
+    //     splitChunks: {
+    //         name: 'vendor'
+    //     }
+    // };
 }
 
 
