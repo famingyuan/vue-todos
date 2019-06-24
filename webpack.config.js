@@ -2,6 +2,8 @@
 // 1. https://juejin.im/entry/5a97b0eaf265da237b217f59
 // 2. https://vue-loader.vuejs.org/zh/guide/#%E6%89%8B%E5%8A%A8%E8%AE%BE%E7%BD%AE
 
+// 3. https://juejin.im/post/5ba44831f265da0ac8493210 webpack4配置简要说明
+
 const path = require('path');
 const webpack = require('webpack');
 // from ORG site
@@ -14,11 +16,12 @@ const { _VueLoaderPlugin } = require('vue-loader');
 // 用于生成html模板文件或者将资源自动添加到指定的模板文件中
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-// 用于将css单独打包抽离
+// 用于将css单独打包抽离 针对每一个js文件（每一个entry） 抽离一个css文件
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 // 用于清空某些目录
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+
 
 
 const isDev = process.env.NODE_ENV === 'production' ? false : true;
@@ -27,12 +30,20 @@ console.log('IS_DEV = ' + isDev)
 
 const config = {
     target: 'web',
-    // mode: 'development',
+    mode: isDev ? 'development' : 'production',
+    // 比较准确和快
+    // https://www.cnblogs.com/wangyingblog/p/7027540.html
+    // vue-cli dev 使用  cheap-module-eval-source-map  cheap-module-source-map
+    // 如果不想保留map信息 则留空
+    devtool: isDev ? 'cheap-module-eval-source-map' : '',
     // 指定当前项目有哪些编译入口
     entry: path.resolve(__dirname, 'src/index.js'),
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'bundle.[hash:8].js'
+        filename: 'bundle.[hash:8].js',
+        // 用于对路径进行补全 比如 / 则为根路径，当使用本地访问时 则无法访问，需要使用web访问
+        // 可以根据dist发布的目录 做相应的适配操作 默认情况下 配置为./
+        publicPath: "./"
     },
     module: {
         rules: [{
@@ -122,6 +133,8 @@ const config = {
     plugins: [
         // 清空dist目录 每次打包时
         new CleanWebpackPlugin(),
+        // 在控制台中输出可读的模块名。
+        // new webpack.NamedModulesPlugin(),
         new webpack.DefinePlugin({
             // 用来定义在编译时使用的全局变量 以实现编译时 针对production或者development版本做不同的编译处理
             // 在我们的代码中 也可以使用 process.env
@@ -132,12 +145,13 @@ const config = {
             }
             // or 'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
         }),
-
+        // 用于将css单独打包抽离 针对每一个js文件（每一个entry） 抽离一个css文件
+        // hash值 针对css文件
         new MiniCssExtractPlugin({
             // Options similar to the same options in webpackOptions.output
             // both options are optional
-            filename: isDev ? '[name].css' : '[name].[hash:8].css',
-            chunkFilename: isDev ? '[id].css' : '[id].[hash:8].css',
+            filename: isDev ? '[name].css' : '[name].[hash:10].css',
+            chunkFilename: isDev ? '[id].css' : '[id].[hash:10].css',
         }),
         new HtmlWebpackPlugin({
             // 默认情况下 生成 dist/index.html 文件
@@ -151,8 +165,6 @@ const config = {
 
 if (isDev) {
 
-    // 比较准确和快
-    config.devtool = '#cheap-module-source-map';
     config.devServer = {
         port: 8000,
         host: '0.0.0.0', // localhost 或者其他ip可以访问
@@ -181,8 +193,9 @@ if (isDev) {
     // production环境必须使用 chunkhash
     // hash 为所有文件的hash ， trunkhash 为单个
     // 用hash时app和vendor的hash码是一样的了,这样每次业务代码更新,vendor也会更新,也就没有了意义
+    // 只针对js文件
     config.output.filename = '[name].[chunkhash:8].js';
-    config.mode = 'production';
+
 
     // webpack4+ 已经 移除
     /**
@@ -207,6 +220,13 @@ if (isDev) {
     //         name: 'vendor'
     //     }
     // };
+
+    config.optimization = {
+        splitChunks: {
+            chunks: 'all',
+            // name: 'vendor'
+        }
+    };
 }
 
 

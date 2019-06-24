@@ -1,7 +1,7 @@
-.main-header[data-v-0ef7c716] {
+.main-header[data-v-531fbcf6] {
   text-align: center;
 }
-.main-header h1[data-v-0ef7c716] {
+.main-header h1[data-v-531fbcf6] {
   font-size: 100px;
   color: rgba(175, 47, 47, 0.4);
   font-weight: bold;
@@ -17,23 +17,23 @@
   right: 0;
 }
 
-.todo-item[data-v-c955b208] {
+.todo-item[data-v-ecc9d3ce] {
   position: relative;
   font-size: 24px;
   border-bottom: 1px solid #f3f3f3;
 }
-.todo-item .label[data-v-c955b208] {
+.todo-item .label[data-v-ecc9d3ce] {
   color: #000;
 }
-.todo-item.completed[data-v-c955b208] {
+.todo-item.completed[data-v-ecc9d3ce] {
   color: #999;
 }
 
-.state-item.actived[data-v-e0842972] {
+.state-item.actived[data-v-4e80fb46] {
   color: red;
 }
 
-.todo-wrapper[data-v-618be5f9] {
+.todo-wrapper[data-v-b1192062] {
   padding: 20px;
   background: #efefef;
   box-shadow: 0 0 3px 4px #f3f3f3;
@@ -43,7 +43,7 @@
   margin: 0 auto;
   box-sizing: border-box;
 }
-.add-todo-input[data-v-618be5f9] {
+.add-todo-input[data-v-b1192062] {
   height: 30px;
   line-height: 30px;
   padding-left: 15px;
@@ -52,17 +52,17 @@
   width: 100%;
 }
 
-#app[data-v-752a108c] {
+#app[data-v-2de70fbc] {
   position: absolute;
   left: 0;
   top: 0;
   bottom: 0;
   right: 0;
-  background: url(bg.xxx.jpg) no-repeat 0 0;
+  background: url(./bg.xxx.jpg) no-repeat 0 0;
   background-size: cover;
   z-index: 1;
 }
-#cover[data-v-752a108c] {
+#cover[data-v-2de70fbc] {
   position: absolute;
   left: 0;
   top: 0;

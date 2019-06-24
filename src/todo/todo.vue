@@ -6,7 +6,7 @@
       value
       autofocus="true"
       autocomplete="false"
-      placeholder="接下来要做什么呢？"
+      placeholder="接下来要做什么呢2？"
       @keyup.enter="addTodo"
     >
     <template v-for="todo in filterTodos">
