@@ -1,8 +1,10 @@
 // 参考文档
 // 1. https://juejin.im/entry/5a97b0eaf265da237b217f59
-// 2. https://vue-loader.vuejs.org/zh/guide/#%E6%89%8B%E5%8A%A8%E8%AE%BE%E7%BD%AE
+// 2. https://vue-loader.vuejs.org/zh/guide/#%E6%89%8B%E5%8A%A8%E8%AE%BE%E7%BD%AE vue-loader 官方配置说明
 
 // 3. https://juejin.im/post/5ba44831f265da0ac8493210 webpack4配置简要说明
+// 4. hash、contenthash chunkhash 相关区别 https://www.cnblogs.com/giggle/p/9583940.html
+
 
 const path = require('path');
 const webpack = require('webpack');
@@ -84,7 +86,7 @@ const config = {
                             // 开发环境 启用热更新
                             hmr: process.env.NODE_ENV === 'development',
                             // if hmr does not work, this is a forceful method.
-                            // 所以如果总是刷新整个页面 则考虑是否取消掉该选项
+                            // PS:所以如果总是刷新整个页面 则考虑是否取消掉该选项
                             reloadAll: true,
                         },
                     },
@@ -150,8 +152,8 @@ const config = {
         new MiniCssExtractPlugin({
             // Options similar to the same options in webpackOptions.output
             // both options are optional
-            filename: isDev ? '[name].css' : '[name].[hash:10].css',
-            chunkFilename: isDev ? '[id].css' : '[id].[hash:10].css',
+            filename: isDev ? '[name].css' : '[name].[contenthash:10].css',
+            chunkFilename: isDev ? '[id].css' : '[id].[contenthash:10].css',
         }),
         new HtmlWebpackPlugin({
             // 默认情况下 生成 dist/index.html 文件
@@ -191,9 +193,11 @@ if (isDev) {
         vendor: ['vue']
     };
     // production环境必须使用 chunkhash
-    // hash 为所有文件的hash ， trunkhash 为单个
+    // 1. hash 整个工程的hash ,一个文件变，就变
+    // 2. trunkhash 为单个模块的hash 
     // 用hash时app和vendor的hash码是一样的了,这样每次业务代码更新,vendor也会更新,也就没有了意义
-    // 只针对js文件
+    // 3. contenthash 用于独立css模块或者JS模块的值，避免其中js变更导致css变更了
+    // contenthash 取决于文件自己的hash
     config.output.filename = '[name].[chunkhash:8].js';
 
 

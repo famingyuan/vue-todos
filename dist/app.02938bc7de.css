@@ -15,6 +15,7 @@
   left: 0;
   bottom: 30px;
   right: 0;
+  margin-bottom: 30px;
 }
 
 .todo-item[data-v-ecc9d3ce] {
@@ -36,14 +37,12 @@
 .todo-wrapper[data-v-ac9373da] {
   padding: 20px;
   background: #efefef;
-  -webkit-box-shadow: 0 0 3px 4px #f3f3f3;
-          box-shadow: 0 0 3px 4px #f3f3f3;
+  box-shadow: 0 0 3px 4px #f3f3f3;
   position: relative;
   z-index: 22;
   width: 600px;
   margin: 0 auto;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 .add-todo-input[data-v-ac9373da] {
   height: 30px;
@@ -78,7 +77,6 @@
 .test_less {
   color: red;
   display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
 }
 .test_less .sub_test_less {
