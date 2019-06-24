@@ -1,4 +1,3 @@
-
 // 参考文档
 // 1. https://juejin.im/entry/5a97b0eaf265da237b217f59
 // 2. https://vue-loader.vuejs.org/zh/guide/#%E6%89%8B%E5%8A%A8%E8%AE%BE%E7%BD%AE
@@ -36,8 +35,7 @@ const config = {
         filename: 'bundle.[hash:8].js'
     },
     module: {
-        rules: [
-            {
+        rules: [{
                 test: /\.vue/i,
                 loader: 'vue-loader'
             },
@@ -110,16 +108,14 @@ const config = {
             },
             {
                 test: /\.(jpg|jpeg|png|gif|svg)$/i,
-                use: [
-                    {
-                        // 使用url-loader 会根据 limit ，小于的，则使用base64 ,大于的 则交给 file-loader 进行管理文件（转存、hash命名）
-                        loader: 'url-loader', // url-loader 依赖 file-loader ， 相当于是其超集
-                        options: {
-                            limit: 1024,// 小于1024的 转成base64输出
-                            name: '[name].xxx.[ext]'
-                        }
+                use: [{
+                    // 使用url-loader 会根据 limit ，小于的，则使用base64 ,大于的 则交给 file-loader 进行管理文件（转存、hash命名）
+                    loader: 'url-loader', // url-loader 依赖 file-loader ， 相当于是其超集
+                    options: {
+                        limit: 1024, // 小于1024的 转成base64输出
+                        name: '[name].xxx.[ext]'
                     }
-                ]
+                }]
             }
         ]
     },
@@ -159,7 +155,7 @@ if (isDev) {
     config.devtool = '#cheap-module-source-map';
     config.devServer = {
         port: 8000,
-        host: '0.0.0.0',// localhost 或者其他ip可以访问
+        host: '0.0.0.0', // localhost 或者其他ip可以访问
         overlay: {
             errors: true // webpack 编译出错 可以在网页上看到
         },
@@ -173,8 +169,6 @@ if (isDev) {
         // }
     }
 
-    // 添加具体的规则 开发环境 less转换成css之后 进行postcss 指定相应的处理
-
     // 热加载功能  vue-loader 已经处理了 热加载细节
     // 需要自定义 热加载过程 ，但是vue-loader已经处理了 
     config.plugins.push(new webpack.HotModuleReplacementPlugin(), new webpack.NoEmitOnErrorsPlugin);
@@ -183,9 +177,10 @@ if (isDev) {
     config.entry = {
         app: path.resolve(__dirname, 'src/index.js'),
         vendor: ['vue']
-    }
+    };
     // production环境必须使用 chunkhash
     // hash 为所有文件的hash ， trunkhash 为单个
+    // 用hash时app和vendor的hash码是一样的了,这样每次业务代码更新,vendor也会更新,也就没有了意义
     config.output.filename = '[name].[chunkhash:8].js';
     config.mode = 'production';
 
@@ -205,7 +200,7 @@ if (isDev) {
     );
      * 
      */
-    
+
     // config.optimization.splitChunks instead.
     // config.optimization = {
     //     splitChunks: {
