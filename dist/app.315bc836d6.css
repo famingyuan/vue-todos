@@ -36,12 +36,14 @@
 .todo-wrapper[data-v-ac9373da] {
   padding: 20px;
   background: #efefef;
-  box-shadow: 0 0 3px 4px #f3f3f3;
+  -webkit-box-shadow: 0 0 3px 4px #f3f3f3;
+          box-shadow: 0 0 3px 4px #f3f3f3;
   position: relative;
   z-index: 22;
   width: 600px;
   margin: 0 auto;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 .add-todo-input[data-v-ac9373da] {
   height: 30px;
@@ -76,6 +78,7 @@
 .test_less {
   color: red;
   display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
 }
 .test_less .sub_test_less {
