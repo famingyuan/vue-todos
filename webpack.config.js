@@ -37,6 +37,11 @@ const config = {
     // https://www.cnblogs.com/wangyingblog/p/7027540.html
     // vue-cli dev 使用  cheap-module-eval-source-map  cheap-module-source-map
     // 如果不想保留map信息 则留空
+    // cheap 不留空
+    // module 第三方模块也映射
+    // eval 速度快 sourceMap代码被打包进去了 且 采用eval方式执行JS 映射关系
+    // inline 也是被打包，但是是base64方式
+    // 默认情况下 都是通过外挂 .map.js 文件方式
     devtool: isDev ? 'cheap-module-eval-source-map' : '',
     // 指定当前项目有哪些编译入口
     entry: path.resolve(__dirname, 'src/index.js'),
