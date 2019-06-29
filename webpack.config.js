@@ -172,7 +172,9 @@ const config = {
 };
 
 if (isDev) {
-
+    // webpack --watch
+    // webpack-dev-server
+    // webpack-dev-middleware 自己写
     config.devServer = {
         port: 8000,
         host: '0.0.0.0', // localhost 或者其他ip可以访问
