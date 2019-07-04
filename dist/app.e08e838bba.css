@@ -59,7 +59,7 @@
   top: 0;
   bottom: 0;
   right: 0;
-  background: url(bg.xxx.jpg) no-repeat 0 0;
+  background: url(resource/src/assets/images/bg.xxx.jpg) no-repeat 0 0;
   background-size: cover;
   z-index: 1;
 }
@@ -83,3 +83,10 @@
   color: blue;
 }
 
+.test_css {
+    color: yellow;
+}
+
+.sub_test_css {
+    color: green;
+}
