@@ -139,7 +139,7 @@ module.exports = {
             // Options similar to the same options in webpackOptions.output
             // both options are optional
             filename: isDev ? '[name].css' : '[name].[contenthash:10].css',
-            // entryName + 
+            // entryName +
             chunkFilename: isDev ? '[name].chunk.css' : '[name].[contenthash:10].chunk.css',
         }),
     ]
@@ -147,6 +147,7 @@ module.exports = {
     optimization: {
         // manifest 可能会在打包时 发生改变，所以 可能需要独立出来
         // main verdor 之间的关系 为 manifest
+        // 或者配置为true 等同为 name:'runtime'
         runtimeChunk: {
             // 将会为每个entry 配置独立的runtime
             // 如果多个entry之间想要共享的 则需要 设置为runtimeChunk 为 single
@@ -179,8 +180,8 @@ module.exports = {
                     test: /[\\/]node_modules[\\/]/,
                     priority: -10,
                     // 自定义名称 但是注意：针对chunk设置为 aysnc的情况，不得配置filename此项为固定值 否则报错
-                    // You are trying to set a filename for a chunk which is (also) loaded on demand. 
-                    // The runtime can only handle loading of chunks which match the chunkFilename schema. 
+                    // You are trying to set a filename for a chunk which is (also) loaded on demand.
+                    // The runtime can only handle loading of chunks which match the chunkFilename schema.
                     // Using a custom filename would fail at runtime.
                     // filename:'nodeMudles_vendors.js'
                 },
@@ -211,7 +212,7 @@ module.exports = {
         // css JS 的最小化压缩
         // 因为minizer会覆盖掉 webpack默认的压缩 所以需要额外给补充下JS压缩
         // 默认情况下CSS没有被压缩的 即便是生产环境
-        // Setting optimization.minimizer overrides the defaults provided by webpack, 
+        // Setting optimization.minimizer overrides the defaults provided by webpack,
         // 默认情况下 CSS 没有压缩的
         // so make sure to also specify a JS minimizer:
         minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})]
