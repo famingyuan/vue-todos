@@ -46,11 +46,11 @@ const config = {
         rules: [
             {
                 enforce: "pre",
-                test: /\.js$/,
+                test: /\.(vue|js|jsx)$/,
                 exclude: /node_modules/,
-                use:{
-                    loader:'eslint-loader',
-                    options:{
+                use: {
+                    loader: 'eslint-loader',
+                    options: {
                         emitError: true,
                         failOnError: true
                     }
