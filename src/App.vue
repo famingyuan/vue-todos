@@ -8,9 +8,9 @@
 </template>
 
 <script>
-import Header from './todo/header.vue'
-import Footer from './todo/footer.jsx'
-import Todo from './todo/todo.vue'
+import Header from './todo/header.vue';
+import Footer from './todo/footer.jsx';
+import Todo from './todo/todo.vue';
 
 export default {
     components: {
@@ -19,9 +19,9 @@ export default {
         Todo: Todo
     },
     data () {
-        return {}
+        return {};
     }
-}
+};
 </script>
 
 <style lang="less" scoped>

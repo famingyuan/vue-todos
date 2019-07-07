@@ -38,14 +38,14 @@ export default {
     data () {
         return {
             states: ['active', 'completed', 'all']
-        }
+        };
     },
     methods: {
         toggleFilter: function (state) {
-            this.$emit('toggleFilter', state)
+            this.$emit('toggleFilter', state);
         }
     }
-}
+};
 </script>
 
 <style lang="less" scoped>

@@ -53,8 +53,8 @@ export default {
     },
     methods: {
         removeTodo: function () {
-            this.$emit('removeTodo', this.todo)
+            this.$emit('removeTodo', this.todo);
         }
     }
-}
+};
 </script>

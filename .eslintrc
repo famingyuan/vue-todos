@@ -1,19 +1,29 @@
 {
-  "root": true,
-  "extends": [
-    //  "eslint:recommended",
-    // 并无太多的区别
-    "standard",
-    "plugin:vue/recommended"
-  ],
-  "plugins": [
-    "html",
-    "vue"
-  ],
-  "parserOptions": {
-    "parser": "babel-eslint"
-  },
-  "rules":{
-    "indent": ["error", 4]
-  }
+    "root": true,
+    "extends": [
+        //  "eslint:recommended",
+        // 并无太多的区别
+        "standard",
+        "plugin:vue/recommended"
+    ],
+    "plugins": [
+        "html",
+        "vue"
+    ],
+    "parserOptions": {
+        "parser": "babel-eslint"
+    },
+    "rules": {
+        "indent": [
+            "error",
+            4
+        ],
+        "semi": [
+            "error",
+            "always",
+            {
+                "omitLastInOneLineBlock": true
+            }
+        ]
+    }
 }

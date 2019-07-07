@@ -31,23 +31,23 @@ export default {
         }
     },
     data () {
-        return {}
+        return {};
     },
     computed: {
         unFinishedLen: function () {
-            var len = 0
+            var len = 0;
             this.todos.forEach(item => {
                 if (item.completed !== true) {
-                    len++
+                    len++;
                 }
-            })
-            return len
+            });
+            return len;
         }
     },
     methods: {
         clearCompleted: function () {
-            this.$emit('clearAllCompleted')
+            this.$emit('clearAllCompleted');
         }
     }
-}
+};
 </script>
