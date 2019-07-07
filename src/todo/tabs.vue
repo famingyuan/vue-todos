@@ -2,11 +2,11 @@
   <div class="tabs-container">
     <span class="tabs">
       <span
-        v-for="(state,index) in  states"
+        v-for="(state,index) in states"
         :key="index"
         :class="['state-item',state,(state==filter?'actived':'')]"
         @click="toggleFilter(state)"
-      >{{state}}</span>
+      >{{ state }}</span>
     </span>
   </div>
 </template>

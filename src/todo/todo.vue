@@ -3,7 +3,7 @@
     <Tabs
       :filter="filter"
       @toggleFilter="toggleFilter"
-    ></Tabs>
+    />
 
     <input
       type="text"
@@ -15,13 +15,17 @@
       @keyup.enter="addTodo"
     >
     <template v-for="todo in filterTodos">
-      <TodoItem :todo="todo" :key="todo.id" @removeTodo="removeTodo"></TodoItem>
+      <TodoItem
+        :key="todo.id"
+        :todo="todo"
+        @removeTodo="removeTodo"
+      />
     </template>
 
     <Summary
       :todos="todos"
       @clearAllCompleted="clearAllCompleted"
-    ></Summary>
+    />
   </section>
 </template>
 <style lang="less" scoped>

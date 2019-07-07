@@ -1,7 +1,10 @@
 <template>
   <div class="helpers">
-    <span class="lefts">{{unFinishedLen}} lefts</span>
-    <span class="clear-completed" @click="clearCompleted">clear completed</span>
+    <span class="lefts">{{ unFinishedLen }} lefts</span>
+    <span
+      class="clear-completed"
+      @click="clearCompleted"
+    >clear completed</span>
   </div>
 </template>
 
