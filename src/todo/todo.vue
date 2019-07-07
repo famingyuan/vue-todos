@@ -53,66 +53,66 @@
 </style>
 
 <script>
-import TodoItem from "./todo-item.vue";
-import Tabs from "./tabs.vue";
-import Summary from "./summary.vue";
-let id = 0;
+import TodoItem from './todo-item.vue'
+import Tabs from './tabs.vue'
+import Summary from './summary.vue'
+let id = 0
 export default {
-  components: {
-    TodoItem: TodoItem,
-    Tabs: Tabs,
-    Summary: Summary
-  },
-  data() {
-    return {
-      todos: [],
-      filter: "active"
-    };
-  },
-  computed: {
-    filterTodos: function() {
-      if (this.filter === "all") {
-        return this.todos;
-      }
-      var isCompleted = this.filter === "active";
-      var filterTodos = this.todos.filter(item => {
-        return item.completed != isCompleted;
-      });
-      console.log("filterTodos= ", filterTodos);
-      return filterTodos;
-    }
-  },
-  methods: {
-    addTodo: function(e) {
-      var content = e.target.value.replace(/\s/g, "");
-      if (!content) {
-        return;
-      }
-      this.todos.push({
-        content: content,
-        id: id++,
-        completed: false
-      });
+    components: {
+        TodoItem: TodoItem,
+        Tabs: Tabs,
+        Summary: Summary
+    },
+    data () {
+        return {
+            todos: [],
+            filter: 'active'
+        }
+    },
+    computed: {
+        filterTodos: function () {
+            if (this.filter === 'all') {
+                return this.todos
+            }
+            var isCompleted = this.filter === 'active'
+            var filterTodos = this.todos.filter(item => {
+                return item.completed !== isCompleted
+            })
+            console.log('filterTodos= ', filterTodos)
+            return filterTodos
+        }
+    },
+    methods: {
+        addTodo: function (e) {
+            var content = e.target.value.replace(/\s/g, '')
+            if (!content) {
+                return
+            }
+            this.todos.push({
+                content: content,
+                id: id++,
+                completed: false
+            })
 
-      e.target.value = "";
-    },
-    clearAllCompleted: function() {
-      console.log("will clearAllCompleted");
-      this.todos = this.todos.filter(item => {
-        return item.completed != true;
-      });
-    },
-    toggleFilter: function(filter) {
-      console.log("toggleFilter");
-      console.log(filter);
-      this.filter = filter;
-    },
-    removeTodo: function(todo) {
-      console.log("will remove todo --> " + todo.content);
-      this.todos = this.todos.filter(item => {
-        return item !== todo;
-      });
+            e.target.value = ''
+        },
+        clearAllCompleted: function () {
+            console.log('will clearAllCompleted')
+            this.todos = this.todos.filter(item => {
+                return item.completed !== true
+            })
+        },
+        toggleFilter: function (filter) {
+            console.log('toggleFilter')
+            console.log(filter)
+            this.filter = filter
+        },
+        removeTodo: function (todo) {
+            console.log('will remove todo --> ' + todo.content)
+            this.todos = this.todos.filter(item => {
+                return item !== todo
+            })
+        }
     }
-  }
-};
+}
 </script>

@@ -8,7 +8,6 @@
   </div>
 </template>
 
-
 <style lang="less" scoped>
 .helpers{
     padding-top: 30px;
@@ -25,30 +24,30 @@
 
 <script>
 export default {
-  props: {
-    todos: {
-      type: Array,
-      required: true
-    }
-  },
-  data() {
-    return {};
-  },
-  computed: {
-    unFinishedLen: function() {
-      var len = 0;
-      this.todos.forEach(item => {
-        if (item.completed !== true) {
-          len++;
+    props: {
+        todos: {
+            type: Array,
+            required: true
         }
-      });
-      return len;
+    },
+    data () {
+        return {}
+    },
+    computed: {
+        unFinishedLen: function () {
+            var len = 0
+            this.todos.forEach(item => {
+                if (item.completed !== true) {
+                    len++
+                }
+            })
+            return len
+        }
+    },
+    methods: {
+        clearCompleted: function () {
+            this.$emit('clearAllCompleted')
+        }
     }
-  },
-  methods: {
-    clearCompleted: function() {
-      this.$emit("clearAllCompleted");
-    }
-  }
-};
+}
 </script>

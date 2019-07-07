@@ -29,23 +29,23 @@
 
 <script>
 export default {
-  props: {
-    filter: {
-      type: String,
-      required: true
+    props: {
+        filter: {
+            type: String,
+            required: true
+        }
+    },
+    data () {
+        return {
+            states: ['active', 'completed', 'all']
+        }
+    },
+    methods: {
+        toggleFilter: function (state) {
+            this.$emit('toggleFilter', state)
+        }
     }
-  },
-  data() {
-    return {
-      states: ["active", "completed", "all"]
-    };
-  },
-  methods: {
-    toggleFilter: function(state) {
-      this.$emit("toggleFilter", state);
-    }
-  }
-};
+}
 </script>
 
 <style lang="less" scoped>

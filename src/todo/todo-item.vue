@@ -45,16 +45,16 @@
 
 <script>
 export default {
-  props: {
-    todo: {
-      required: true,
-      type: Object
+    props: {
+        todo: {
+            required: true,
+            type: Object
+        }
+    },
+    methods: {
+        removeTodo: function () {
+            this.$emit('removeTodo', this.todo)
+        }
     }
-  },
-  methods:{
-      removeTodo:function(){
-        this.$emit('removeTodo',this.todo);   
-      }
-  }
-};
+}
 </script>

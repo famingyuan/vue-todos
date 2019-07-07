@@ -1,14 +1,19 @@
 {
-    "root": true,
-    "extends": [
-        "eslint:recommended",
-        "plugin:vue/recommended"
-    ],
-    "plugins": [
-        "html",
-        "vue"
-    ],
-    "parserOptions": {
-        "parser": "babel-eslint"
-    }
+  "root": true,
+  "extends": [
+    //  "eslint:recommended",
+    // 并无太多的区别
+    "standard",
+    "plugin:vue/recommended"
+  ],
+  "plugins": [
+    "html",
+    "vue"
+  ],
+  "parserOptions": {
+    "parser": "babel-eslint"
+  },
+  "rules":{
+    "indent": ["error", 4]
+  }
 }

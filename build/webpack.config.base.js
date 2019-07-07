@@ -4,20 +4,18 @@
 
 // 3. https://juejin.im/post/5ba44831f265da0ac8493210 webpack4配置简要说明
 // 4. hash、contenthash chunkhash 相关区别 https://www.cnblogs.com/giggle/p/9583940.html
-
-
-const path = require('path');
+const path = require('path')
 
 // from ORG site
 // https://vue-loader.vuejs.org/zh/guide/#%E6%89%8B%E5%8A%A8%E8%AE%BE%E7%BD%AE
 
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 // 用于清空某些目录
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
-const webpack = require('webpack');
+const webpack = require('webpack')
 
-const isDev = process.env.NODE_ENV === 'production' ? false : true;
+const isDev = process.env.NODE_ENV === 'development'
 
 console.log('IS_DEV = ' + isDev)
 
@@ -27,7 +25,7 @@ const config = {
 
     // 指定当前项目有哪些编译入口
     entry: {
-        app: path.resolve(__dirname, '../src/index.js'),
+        app: path.resolve(__dirname, '../src/index.js')
         // 用于将常用的库 单独打包，实现长缓存 避免业务代码更新 导致hash变更
         // https://webpack.js.org/concepts/entry-points/#separate-app-and-vendor-entries
         // webpack4 已经不再推荐这么干了 采用 splitChunks来操作
@@ -45,16 +43,20 @@ const config = {
     module: {
         rules: [
             {
-                enforce: "pre",
+
                 test: /\.(vue|js|jsx)$/,
                 exclude: /node_modules/,
                 use: {
+                    // 用于处理代码检测
+                    // dev 时就执行代码检查
                     loader: 'eslint-loader',
                     options: {
                         emitError: true,
                         failOnError: true
                     }
-                }
+                },
+                // 预处理
+                enforce: 'pre'
             },
             // // this will apply to both plain `.js` files
             // // AND `<script>` blocks in `.vue` files
@@ -62,7 +64,7 @@ const config = {
                 test: /\.js$/,
                 exclude: [/node_modules/],
                 use: {
-                    loader: 'babel-loader',
+                    loader: 'babel-loader'
                     // dev 编译时 可能不会对语法进行转换， production时 将转换
                     // options: {
                     //     // 务必配置或者使用 babelrc
@@ -71,7 +73,7 @@ const config = {
                 }
             },
 
-            // 对jsx使用 babel-loader处理 
+            // 对jsx使用 babel-loader处理
             {
                 test: /\.jsx$/,
                 exclude: [/node_modules/],
@@ -99,10 +101,10 @@ const config = {
 
         new webpack.ProgressPlugin(),
         // 在控制台中输出可读的模块名。
-        // new webpack.NamedModulesPlugin(), 
+        // new webpack.NamedModulesPlugin(),
         // 打包分析插件
-        // new BundleAnalyzerPlugin(),
+        new BundleAnalyzerPlugin()
     ]
-};
+}
 
-module.exports = config;
+module.exports = config
