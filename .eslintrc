@@ -1,8 +1,12 @@
 {
     "root": true,
-    "extends": "standard",
+    "extends": [
+        "eslint:recommended",
+        "plugin:vue/recommended"
+    ],
     "plugins": [
-        "html"
+        "html",
+        "vue"
     ],
     "parserOptions": {
         "parser": "babel-eslint"
