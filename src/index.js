@@ -1,10 +1,18 @@
 import Vue from 'vue'
 import App from './App.vue'
 
-import './assets/style/a.less'
-import './assets/style/a.css'
+import './less/a.less'
+import './less/a.css'
 
-import './assets/images/bg.png'
+import './images/bg.png'
+
+// css 模块加载使用方式
+import moduleCSS from './less/module.less';
+
+const moduleDiv = document.createElement('div');
+moduleDiv.classList.add(moduleCSS['module-test']);
+
+document.body.appendChild(moduleDiv);   
 
 const root = document.createElement('div');
 document.body.appendChild(root);

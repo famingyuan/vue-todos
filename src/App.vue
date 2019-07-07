@@ -31,7 +31,7 @@ export default {
   top: 0;
   bottom: 0;
   right: 0;
-  background: url('./assets/images/bg.jpg') no-repeat 0 0;
+  background: url('./images/bg.jpg') no-repeat 0 0;
   background-size: cover;
   z-index: 1;
 }

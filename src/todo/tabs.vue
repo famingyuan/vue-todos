@@ -1,7 +1,5 @@
 <template>
-  <div class="helpers">
-    <span class="lefts">{{unFinishedLen}} lefts</span>
-
+  <div class="tabs-container">
     <span class="tabs">
       <span
         v-for="(state,index) in  states"
@@ -10,20 +8,30 @@
         @click="toggleFilter(state)"
       >{{state}}</span>
     </span>
-
-    <span class="clear-completed" @click="clearCompleted">clear completed</span>
   </div>
 </template>
+
+<style lang="less" scoped>
+.tabs{
+  .state-item{
+    font-size: 24px;
+    color:#000;
+    line-height: 1.6;
+    padding:5px;
+    &.actived{
+      color:red;
+      text-decoration: underline;
+      font-weight: bold;
+    }
+  }
+}
+</style>
 
 <script>
 export default {
   props: {
     filter: {
       type: String,
-      required: true
-    },
-    todos: {
-      type: Array,
       required: true
     }
   },
@@ -32,23 +40,9 @@ export default {
       states: ["active", "completed", "all"]
     };
   },
-  computed: {
-    unFinishedLen: function() {
-      var len = 0;
-      this.todos.forEach(item => {
-        if (item.completed !== true) {
-          len++;
-        }
-      });
-      return len;
-    }
-  },
   methods: {
     toggleFilter: function(state) {
       this.$emit("toggleFilter", state);
-    },
-    clearCompleted: function() {
-      this.$emit("clearAllCompleted");
     }
   }
 };

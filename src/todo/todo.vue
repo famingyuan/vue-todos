@@ -1,5 +1,10 @@
 <template>
   <section class="todo-wrapper">
+    <Tabs
+      :filter="filter"
+      @toggleFilter="toggleFilter"
+    ></Tabs>
+
     <input
       type="text"
       class="add-todo-input"
@@ -13,19 +18,16 @@
       <TodoItem :todo="todo" :key="todo.id" @removeTodo="removeTodo"></TodoItem>
     </template>
 
-    <Tabs
-      :filter="filter"
+    <Summary
       :todos="todos"
       @clearAllCompleted="clearAllCompleted"
-      @toggleFilter="toggleFilter"
-    ></Tabs>
+    ></Summary>
   </section>
 </template>
 <style lang="less" scoped>
 .todo-wrapper {
   padding: 20px;
   background: #efefef;
-  box-shadow: 0 0 3px 4px #f3f3f3;
   position: relative;
   z-index: 22;
   width: 600px;
@@ -34,23 +36,28 @@
 }
 
 .add-todo-input {
-  height: 30px;
-  line-height: 30px;
+  height: 50;
+  line-height: 50px;
   padding-left: 15px;
   border: none;
   text-align: left;
   width: 100%;
+  box-sizing: border-box;
+  margin:20px 0;
+  font-size: 16px;
 }
 </style>
 
 <script>
 import TodoItem from "./todo-item.vue";
 import Tabs from "./tabs.vue";
+import Summary from "./summary.vue";
 let id = 0;
 export default {
   components: {
     TodoItem: TodoItem,
-    Tabs: Tabs
+    Tabs: Tabs,
+    Summary: Summary
   },
   data() {
     return {
@@ -69,8 +76,7 @@ export default {
       });
       console.log("filterTodos= ", filterTodos);
       return filterTodos;
-    },
-    
+    }
   },
   methods: {
     addTodo: function(e) {
