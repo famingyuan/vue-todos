@@ -3,7 +3,7 @@
 module.exports = function (isDev) {
 
     return {
-        
+        // runtimeCompiler: true
     }
 
 }

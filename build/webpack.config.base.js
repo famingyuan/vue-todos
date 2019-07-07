@@ -103,7 +103,7 @@ const config = {
         // 在控制台中输出可读的模块名。
         // new webpack.NamedModulesPlugin(),
         // 打包分析插件
-        new BundleAnalyzerPlugin()
+        // new BundleAnalyzerPlugin()
     ]
 }
 

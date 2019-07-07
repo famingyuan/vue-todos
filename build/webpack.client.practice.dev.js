@@ -2,20 +2,28 @@
  * web 开发环境使用的特殊配置
  *
  */
+const webpack = require('webpack');
+const merge = require('webpack-merge');
+
+
+var baseConfig = require('./webpack.config.base');
+const clientConfig = require('./webpack.config.client');
+
 // 用于生成html模板文件或者将资源自动添加到指定的模板文件中
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const webpack = require('webpack');
-const merge = require('webpack-merge');
-const baseConfig = require('./webpack.config.base');
-const clientConfig = require('./webpack.config.client');
+const path = require('path');
 
+const configUtil = require('./config.util');
+
+// 删除多余的entry
+baseConfig = configUtil.cleanEntry(baseConfig);
 
 // webpack --watch
 // webpack-dev-server
 // webpack-dev-middleware 自己写
 const devServer = {
-    port: 8000,
+    port: 9999,
     host: 'localhost', // localhost 或者其他ip可以访问
     overlay: {
         errors: true // webpack 编译出错 可以在网页上看到
@@ -32,6 +40,10 @@ const devServer = {
 
 
 var config = merge(baseConfig, clientConfig, {
+
+    entry: {
+        index: path.join(__dirname, '../src/practice/index.js')
+    },
     // 比较准确和快
     // https://www.cnblogs.com/wangyingblog/p/7027540.html
     // vue-cli dev 使用  cheap-module-eval-source-map  cheap-module-source-map
@@ -43,11 +55,23 @@ var config = merge(baseConfig, clientConfig, {
     // 默认情况下 都是通过外挂 .map.js 文件方式
     devtool: 'cheap-module-eval-source-map',
     devServer: devServer,
+    // 用于指定别名
+    resolve:{
+
+        alias:{
+            // vue 需要使用 alias 指定使用的具体是哪个版本的代码
+            // 否则可能template无法使用
+            // [参考](https://blog.csdn.net/xiaomajia029/article/details/88320233)
+            // 或者指定 runtimeCompiler: true
+            'vue':path.join(__dirname,'../node_modules/vue/dist/vue.esm.js')
+        }
+    },
     plugins: [
         new HtmlWebpackPlugin({
             // 默认情况下 生成 dist/index.html 文件
             // 也可以单独指定采用哪个模板html作为基础 加入相应的js、css
-            // template: './src/default.html'  // 模板
+            template: path.join(__dirname, 'practice.template.html'),  // 模板
+            filename: 'index.html'
         }),
         // 热加载功能  vue-loader 已经处理了 热加载细节
         // 需要自定义 热加载过程 ，但是vue-loader已经处理了
@@ -56,4 +80,3 @@ var config = merge(baseConfig, clientConfig, {
 })
 
 module.exports = config;
-

@@ -24,6 +24,7 @@
             {
                 "omitLastInOneLineBlock": true
             }
-        ]
+        ],
+        "no-new": "off"
     }
 }

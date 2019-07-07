@@ -3,8 +3,7 @@ const webpack = require('webpack');
 // 用于将css单独打包抽离 针对每一个js文件（每一个entry） 抽离一个css文件
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-// 用于生成html模板文件或者将资源自动添加到指定的模板文件中
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+
 
 const { VueLoaderPlugin } = require('vue-loader');
 
@@ -117,11 +116,7 @@ module.exports = {
     plugins: [
         // 必须要加载该插件才能解析.VUE
         new VueLoaderPlugin(),
-        new HtmlWebpackPlugin({
-            // 默认情况下 生成 dist/index.html 文件
-            // 也可以单独指定采用哪个模板html作为基础 加入相应的js、css
-            // template: './src/default.html'  // 模板
-        }),
+
         new webpack.DefinePlugin({
             // 用来定义在编译时使用的全局变量 以实现编译时 针对production或者development版本做不同的编译处理
             // 在我们的代码中 也可以使用 process.env
