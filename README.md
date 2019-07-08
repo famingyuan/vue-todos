@@ -1,2 +1,4 @@
 # vue-todos
-学习vue基础示例
+搭建vue基础环境 （仅适用webpack，不使用vue-cli）
+=====v2===========
+深入学习 vue 相关语法
