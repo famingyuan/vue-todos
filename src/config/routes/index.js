@@ -4,6 +4,10 @@ import Login from '../../login/login.vue';
 
 export default [
     {
+        path: '/',
+        redirect: '/app'
+    },
+    {
         path: '/app',
         component: Todo
     },

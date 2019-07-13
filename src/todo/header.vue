@@ -1,6 +1,7 @@
 <template>
   <header class="main-header">
     <h1>TODO LIST</h1>
+    <slot />
   </header>
 </template>
 

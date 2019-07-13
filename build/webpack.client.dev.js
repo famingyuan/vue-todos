@@ -23,11 +23,13 @@ const devServer = {
     // 实现热更新 实现修改组件 只更新部分区域 而不需要重新刷新整个页面
     // 如果是配置文件变更了 则需要重新 run dev
     hot: true,
-    open: true
+    open: true,
     // 用于适配 不满足路由的 默认映射地址 如果不配置 则不加这个属性 否则可能报错
-    // historyFallback:{
-
-    // }
+    // 如果不配置fallback 当前端直接f5刷新时，后端服务器匹配不到该路由 将导致报错
+    // 配置了之后 则由index.html 前端路由做管控了 ，执行相应的前端路由跳转
+    historyApiFallback: {
+        // index: '/index.html'
+    }
 };
 
 
@@ -47,7 +49,7 @@ var config = merge(baseConfig, clientConfig, {
         new HtmlWebpackPlugin({
             // 默认情况下 生成 dist/index.html 文件
             // 也可以单独指定采用哪个模板html作为基础 加入相应的js、css
-            // template: './src/default.html'  // 模板
+            template: './src/index.html'  // 模板
         }),
         // 热加载功能  vue-loader 已经处理了 热加载细节
         // 需要自定义 热加载过程 ，但是vue-loader已经处理了
