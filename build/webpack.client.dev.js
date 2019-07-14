@@ -25,6 +25,7 @@ const devServer = {
     hot: true,
     open: true,
     // 用于适配 不满足路由的 默认映射地址 如果不配置 则不加这个属性 否则可能报错
+    // 当使用history模式时，前端路由地址格式为 /path1/path2 ，但是后端找不到对应的路径 所以会出错
     // 如果不配置fallback 当前端直接f5刷新时，后端服务器匹配不到该路由 将导致报错
     // 配置了之后 则由index.html 前端路由做管控了 ，执行相应的前端路由跳转
     historyApiFallback: {

@@ -47,7 +47,7 @@
   text-align: left;
   width: 100%;
   box-sizing: border-box;
-  margin:20px 0;
+  margin: 20px 0;
   font-size: 16px;
 }
 </style>
