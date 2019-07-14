@@ -9,6 +9,9 @@
       <router-link to="/login">
         login
       </router-link>
+      <router-link :to="{name:'test-page',params:{id:'123456'}}">
+        Test
+      </router-link>
     </Header>
 
     <!-- <Todo /> -->

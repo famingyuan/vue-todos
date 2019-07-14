@@ -37,7 +37,8 @@ const config = {
         // 用于对路径进行补全 比如 / 则为根路径，当使用本地访问时 则无法访问，需要使用web访问
         // 可以根据dist发布的目录 做相应的适配操作 默认情况下 配置为/
         // 务必注意： webpack-dev-server 情况下，不能配置为./或者其他路径，只能为默认值 /
-        // publicPath: "/abc",
+        // 如果不配置 publicPath 则输出的路径是 相对路径，在使用vue-router 二级路由时，访问的JS可能存在路径问题
+        publicPath: "/",
 
     },
     module: {
