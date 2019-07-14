@@ -16,6 +16,7 @@
 
     <!-- <Todo /> -->
     <router-view />
+    <router-view name="sidebar" />
     <Footer />
   </div>
 </template>
