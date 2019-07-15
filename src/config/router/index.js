@@ -4,7 +4,7 @@ import Router from 'vue-router';
 import routes from '../routes/index.js';
 
 export default () => {
-    return new Router({
+    const router = new Router({
         mode: 'history',
         routes,
         // http://localhost:8000/base/app 加上之后 自定义的路由前面自动加上 /base/ 以及
@@ -24,4 +24,20 @@ export default () => {
         // stringifyQuery (obj) {
         // }
     });
+    // 全局前置守卫
+    router.beforeEach((to, from, next) => {
+        console.log('---------global  beforeEach  -----');
+        next();
+    });
+    // 全局解析守卫
+    router.beforeResolve((to, from, next) => {
+        console.log('---------global beforeResolve -----');
+        next();
+    });
+    // 全局后置守卫
+    router.afterEach((to, from) => {
+        console.log('---------global afterEach -----');
+    });
+
+    return router;
 };

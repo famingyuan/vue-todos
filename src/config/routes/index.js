@@ -91,8 +91,14 @@ export default [
     },
 
     {
-        path: '/post',
+        path: '/post/:postId',
         component: Post,
-        props: true
+        props: true,
+        // 路由独享 钩子
+        beforeEnter: (to, from, next) => {
+            // ...
+            console.log('----component beforeEnter ----');
+            next();
+        }
     }
 ];
