@@ -3,6 +3,8 @@
     post page
     postID:{{ postId }}
     title:{{ title }}
+
+    <router-view />
   </div>
 </template>
 

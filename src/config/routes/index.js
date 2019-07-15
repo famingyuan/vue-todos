@@ -11,6 +11,8 @@ const Test = () => import('@/route-pages/test/test.vue');
 
 const Post = () => import('@/route-pages/post/index.vue');
 
+const PostDetail = () => import('@/route-pages/post/detail.vue');
+
 export default [
     {
         path: '/',
@@ -99,6 +101,13 @@ export default [
             // ...
             console.log('----component beforeEnter ----');
             next();
-        }
+        },
+        children: [
+            {
+                path: 'detail',
+                props: true,
+                component: PostDetail
+            }
+        ]
     }
 ];
