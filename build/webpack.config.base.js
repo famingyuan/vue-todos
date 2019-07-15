@@ -41,6 +41,12 @@ const config = {
         publicPath: "/",
 
     },
+    resolve: {
+        alias: {
+            // 为src下JS设置应用别名 方便import  而不需要使用 ../../xxx
+          '@':path.resolve(__dirname,'../src/')
+      }  
+    },
     module: {
         rules: [
             {

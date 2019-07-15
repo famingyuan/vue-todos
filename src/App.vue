@@ -2,22 +2,12 @@
 <template>
   <div id="app">
     <div id="cover" />
-    <Header>
-      <router-link to="/app">
-        app
-      </router-link>
-      <router-link to="/login">
-        login
-      </router-link>
-      <router-link :to="{name:'test-page',params:{id:'123456'}}">
-        Test
-      </router-link>
-    </Header>
-
+    <Header />
     <!-- <Todo /> -->
     <router-view />
     <router-view name="sidebar" />
     <Footer />
+    <CustomNav />
   </div>
 </template>
 
@@ -25,10 +15,13 @@
 import Header from './todo/header.vue';
 import Footer from './todo/footer.jsx';
 
+import CustomNav from './route-pages/customNav/index.vue';
+
 export default {
     components: {
         Header: Header,
-        Footer: Footer
+        Footer: Footer,
+        CustomNav: CustomNav
     },
     data () {
         return {};
