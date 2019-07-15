@@ -21,26 +21,25 @@
   border-bottom: 1px solid #f3f3f3;
   height: 50px;
   line-height: 50px;
-  *{
+  * {
     vertical-align: middle;
   }
   .label {
     color: #000;
   }
-  .delete-todo{
-     display: inline-block;
-     appearance: none;
-     padding:5px;
-     line-height: 1.5;
-     background: #f7f7f7;
-     cursor: pointer;
-     border:1px solid #f3f3f3;
+  .delete-todo {
+    display: inline-block;
+    appearance: none;
+    padding: 5px;
+    line-height: 1.5;
+    background: #f7f7f7;
+    cursor: pointer;
+    border: 1px solid #f3f3f3;
   }
   &.completed {
     color: #999;
   }
 }
-
 </style>
 
 <script>
