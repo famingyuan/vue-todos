@@ -28,6 +28,9 @@
     <router-link to="/post/456/detail">
       /post/456/detail
     </router-link>
+    <router-link to="/post/789/detail">
+      /post/789/detail
+    </router-link>
   </div>
 </template>
 
