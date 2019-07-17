@@ -13,6 +13,8 @@ const Post = () => import('@/route-pages/post/index.vue');
 
 const PostDetail = () => import('@/route-pages/post/detail.vue');
 
+const VuexTest = () => import('@/vuex-practice/index.vue');
+
 export default [
     {
         path: '/',
@@ -109,5 +111,11 @@ export default [
                 component: PostDetail
             }
         ]
+    },
+
+    {
+        path: '/vuex-test',
+        component: VuexTest,
+        name: 'vuex'
     }
 ];

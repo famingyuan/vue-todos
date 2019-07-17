@@ -4,6 +4,9 @@
       app
     </router-link>
 
+    <router-link :to="{name:'vuex'}">
+      测试vuex
+    </router-link>
     <router-link :to="{name:'test-page',params:{id:'123456'}}">
       test-page with ID = 123456
     </router-link>
