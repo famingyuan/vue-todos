@@ -16,7 +16,10 @@ export default {
     },
     actions: {
         asyncUpdatePostName ({ commit, state, getters }, value) {
-            commit('updatePostName', value);
+            console.log('----will update post name in 2000ms');
+            setTimeout(() => {
+                commit('updatePostName', value);
+            }, 2000);
         }
     }
 };
