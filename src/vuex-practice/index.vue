@@ -39,6 +39,21 @@
       </div>
     </div>
     <div class="test-module">
+      <h3>Form表单双向绑定实现</h3>
+      <div class="test-item">
+        <input
+          type="text"
+          :value="count"
+          @change="increment"
+        >
+
+        <input
+          v-model="count2"
+          type="text"
+        >
+      </div>
+    </div>
+    <div class="test-module">
       <h3>Module 使用，有namespace情况</h3>
       <div class="tm-item">
         <p>modulePost_PostName: {{ modulePost_PostName }}</p>
@@ -171,8 +186,17 @@ export default {
         },
 
         // 无namespace情况下 getters注册在全局的
-        fullTitle () { return this.$store.getters.fullTitle }
+        fullTitle () { return this.$store.getters.fullTitle },
 
+        // ====== form 表单绑定功能
+        count2: {
+            get () {
+                return this.$store.state.count;
+            },
+            set (value) {
+                this.add(+value);
+            }
+        }
     },
     mounted () {
     // this.resetPostId('1111');
@@ -182,8 +206,8 @@ export default {
     },
     methods: {
     // =========== mutations相关
-        increment () {
-            this.$store.commit('increment');
+        increment (e) {
+            this.$store.commit('increment', +e.target.value);
         },
         handle_updatePostId () {
             this.$store.commit(mutationsType.UPDATE_POST_ID, '123456');
