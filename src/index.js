@@ -5,10 +5,15 @@ import VueRouter from 'vue-router';
 import CreateRooter from './config/router/index';
 import CreateStore from './store/store.js';
 
+import NotificationPlugin from '@/component/notification/index.js';
+
 import './less/global.less';
 
 Vue.use(VueRouter);
 Vue.use(Vuex);
+
+// 使用自定义插件
+Vue.use(NotificationPlugin);
 
 const router = CreateRooter();
 const store = CreateStore();

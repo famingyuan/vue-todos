@@ -4,6 +4,9 @@
       app
     </router-link>
 
+    <router-link :to="{name:'notification'}">
+      测试notification 组件封装
+    </router-link>
     <router-link :to="{name:'vuex'}">
       测试vuex
     </router-link>

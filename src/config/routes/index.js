@@ -15,6 +15,8 @@ const PostDetail = () => import('@/route-pages/post/detail.vue');
 
 const VuexTest = () => import('@/vuex-practice/index.vue');
 
+const NotificationTest = () => import('@/notification-test/index.vue');
+
 export default [
     {
         path: '/',
@@ -117,5 +119,11 @@ export default [
         path: '/vuex-test',
         component: VuexTest,
         name: 'vuex'
+    },
+
+    {
+        path: '/notification-test',
+        component: NotificationTest,
+        name: 'notification'
     }
 ];
