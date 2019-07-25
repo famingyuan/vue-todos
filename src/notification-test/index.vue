@@ -30,8 +30,7 @@
 </template>
 
 <script>
-import Notification from '@/component/notification/notification.vue';
-import createNotification from '@/component/notification/function-notification.js';
+import Notification from '@/component/notification/index';
 export default {
     components: {
         'notification-local': Notification
@@ -43,7 +42,7 @@ export default {
     },
     methods: {
         showNotification () {
-            createNotification();
+            this.$notification();
         }
     }
 };

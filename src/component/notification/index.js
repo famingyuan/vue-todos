@@ -5,8 +5,11 @@
  */
 // 外界调用 vue.use(pluginFn)
 
-import Notification from '@/component/notification/notification.vue';
+import Notification from './notification.vue';
+
+import notificationFn from './function-notification';
 export default (Vue) => {
     // 全局注册组件
     Vue.component(Notification.name, Notification);
+    Vue.prototype.$notification = notificationFn;
 };

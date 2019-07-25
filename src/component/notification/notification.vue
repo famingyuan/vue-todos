@@ -12,21 +12,20 @@
 
 <style lang="less" scoped>
 .notification {
-  position: absolute;
-  bottom: 0;
-  right: 20px;
-  padding: 10px 15px;
-  background: #ddd;
-  display: flex;
-  justify-content: space-between;
-  z-index: 999;
-  span {
-    font-size: 20px;
-  }
-
-  button {
-    font-size: 16px;
-  }
+    position: absolute;
+    bottom: 0;
+    right: 20px;
+    padding: 10px 15px;
+    background: #ddd;
+    display: flex;
+    justify-content: space-between;
+    z-index: 999;
+    span {
+        font-size: 20px;
+    }
+    button {
+        font-size: 16px;
+    }
 }
 </style>
 
