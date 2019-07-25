@@ -21,12 +21,11 @@
   justify-content: space-between;
   z-index: 999;
   span {
-      font-size: 20px;
+    font-size: 20px;
   }
 
-  button{
-      font-size:16px;
-
+  button {
+    font-size: 16px;
   }
 }
 </style>

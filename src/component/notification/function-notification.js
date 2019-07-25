@@ -26,10 +26,16 @@ function createNotification (options) {
     instanceMapping[instance.id] = instance;
 
     // 挂载到文档外部，只是生成了html代码
-    instance.$mount();
+    // 且 返回 vm - 实例自身
+    let vm = instance.$mount();
+
+    // true ,本质上 两者是相同的
+    console.log('vm === instance ===> ' + (vm === instance));
+
+    instance.vm = vm;
 
     // 真正将组件挂载到文档上
-    document.body.appendChild(instance.$el);
+    document.body.appendChild(instance.vm.$el);
 
     instance.$on('close', () => {
         console.log('-----close -----');
@@ -38,7 +44,7 @@ function createNotification (options) {
     instance.$on('closed', () => {
         console.log('-----closed -----');
         delete instanceMapping[instance.id];
-        instance.$el.remove();
+        instance.vm.$el.remove();
     });
 }
 
