@@ -13,7 +13,7 @@ const clientConfig = require('./webpack.config.client');
 
 // webpack --watch
 // webpack-dev-server
-// webpack-dev-middleware 自己写
+// webpack-dev-middleware 自己git
 const devServer = {
     port: 8000,
     host: 'localhost', // localhost 或者其他ip可以访问
@@ -29,7 +29,7 @@ const devServer = {
     // 如果不配置fallback 当前端直接f5刷新时，后端服务器匹配不到该路由 将导致报错
     // 配置了之后 则由index.html 前端路由做管控了 ，执行相应的前端路由跳转
     historyApiFallback: {
-        // index: '/index.html'
+        index: '/index.html'
     }
 };
 
