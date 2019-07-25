@@ -13,7 +13,7 @@ const clientConfig = require('./webpack.config.client');
 
 // webpack --watch
 // webpack-dev-server
-// webpack-dev-middleware 自己git
+// webpack-dev-middleware 自己写
 const devServer = {
     port: 8000,
     host: 'localhost', // localhost 或者其他ip可以访问
