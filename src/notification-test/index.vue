@@ -15,6 +15,13 @@
           content="this is first notification"
           time-count="1000"
         />
+        <div class="test-title">
+          全局插件 传统使用方式
+        </div>
+        <notification
+          content="this is first notification"
+          time-count="1000"
+        />
       </div>
 
       <div class="tm-item">
@@ -30,7 +37,8 @@
 </template>
 
 <script>
-import Notification from '@/component/notification/index';
+import Notification from '@/component/notification/notification.vue';
+
 export default {
     components: {
         'notification-local': Notification
@@ -42,7 +50,7 @@ export default {
     },
     methods: {
         showNotification () {
-            this.$notification();
+            this.$notify();
         }
     }
 };

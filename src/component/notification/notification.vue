@@ -2,9 +2,10 @@
   <div
     v-show="visible"
     class="notification"
+    :style="style"
   >
     <span>{{ content }}</span>
-    <button @click="removeNotification">
+    <button @click="close">
       {{ btn }}
     </button>
   </div>
@@ -14,7 +15,7 @@
 .notification {
     position: absolute;
     bottom: 0;
-    right: 20px;
+    left: 20px;
     padding: 10px 15px;
     background: #ddd;
     display: flex;
@@ -44,35 +45,24 @@ export default {
         timeCount: {
             type: [Number, String],
             default: 3000
+        },
+        visible: {
+            type: Boolean,
+            default: true
         }
     },
-    data () {
-        return {
-            visible: true
-        };
+    computed: {
+        style () {
+            return {};
+        }
     },
-
-    mounted () {
-        this.createTimer();
-    },
-    beforeDestroy () {
-        this.removeNotification();
-    },
-    destroyed () {
-        this.$emit('closed');
+    created () {
+        console.log('----created notification');
     },
     methods: {
-        removeNotification () {
+        // 由外层 控制 notification的显示与否
+        close () {
             this.$emit('close');
-            this.visible = false;
-        },
-        createTimer () {
-            this.timer = setTimeout(() => {
-                this.visible = false;
-            }, +this.timeCount);
-        },
-        clearTimer () {
-            this.timer && clearTimeout(this.timer);
         }
     }
 };
