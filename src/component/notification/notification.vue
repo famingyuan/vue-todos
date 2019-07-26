@@ -1,32 +1,36 @@
 <template>
-  <div
-    v-show="visible"
-    class="notification"
-    :style="style"
+  <transition
+    @after-leave="afterLeave"
   >
-    <span>{{ content }}</span>
-    <button @click="close">
-      {{ btn }}
-    </button>
-  </div>
+    <div
+      v-show="visible"
+      class="notification"
+      :style="style"
+    >
+      <span>{{ content }}</span>
+      <button @click="close">
+        {{ btn }}
+      </button>
+    </div>
+  </transition>
 </template>
 
 <style lang="less" scoped>
 .notification {
-    position: absolute;
-    bottom: 0;
-    left: 20px;
-    padding: 10px 15px;
-    background: #ddd;
-    display: flex;
-    justify-content: space-between;
-    z-index: 999;
-    span {
-        font-size: 20px;
-    }
-    button {
-        font-size: 16px;
-    }
+  position: absolute;
+  bottom: 0;
+  left: 20px;
+  padding: 10px 15px;
+  background: #ddd;
+  display: flex;
+  justify-content: space-between;
+  z-index: 999;
+  span {
+    font-size: 20px;
+  }
+  button {
+    font-size: 16px;
+  }
 }
 </style>
 
@@ -60,9 +64,16 @@ export default {
         console.log('----created notification');
     },
     methods: {
-        // 由外层 控制 notification的显示与否
+    // 由外层 控制 notification的显示与否
         close () {
+            console.log('orginal notification close');
             this.$emit('close');
+        },
+        // 待 隐藏之后
+        // transition 如果没有name属性，则默认为 v
+        afterLeave () {
+            console.log('orginal notification closed');
+            this.$emit('closed');
         }
     }
 };

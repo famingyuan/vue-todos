@@ -16,17 +16,22 @@ import Component from './function-notification';
 const NotificationConstructor = Vue.extend(Component);
 
 let instanceList = [];
-let seed = 1;
+let seed = 0;
 let prefix = 'notification_';
-function removeNotification (seed) {
+function removeNotification (notification) {
     let index = -1;
-    instanceList.some((item) => {
-        return item.id === (prefix + seed);
+    instanceList.some((item, _index) => {
+        return item === notification && (index = _index) > 0;
     });
     if (index !== -1) {
         instanceList.splice(index, 1);
     } else {
         throw new Error('未找到 index = ' + index);
+    }
+
+    var adx = notification.vm.$el._offsetHeight + 20;
+    for (var i = index, len = instanceList.length; i < len; i++) {
+        instanceList[i].vm.verticalPos -= adx;
     }
 }
 
@@ -48,7 +53,7 @@ function notify (options) {
 
     instanceList.push(instance);
 
-    // 挂载到文档外部，只是生成了html代码
+    // 挂载到文档外部，只是生成了html代码，也就是存在 节点的，只是没有append到页面上
     // 且 返回 vm - 实例自身
     let vm = instance.$mount();
 
@@ -63,14 +68,15 @@ function notify (options) {
     // 只是点击了关闭
     instance.vm.$on('close', () => {
         console.log('-----close -----');
+        instance.vm.$el._offsetHeight = instance.vm.$el.offsetHeight;
         instance.vm.visible = false;
     });
 
     instance.vm.$on('closed', () => {
         console.log('-----closed -----');
-        removeNotification(seed);
+        removeNotification(instance);
         // instance.vm.$el.remove();
-        // 调用组件的销毁
+        // 调用组件的销毁 组件销毁并不会删除dom
         instance.$destroy();
         // 删除创建的DOM节点
         document.body.removeChild(instance.vm.$el);

@@ -1,6 +1,6 @@
 /**
  * 基于现有组件 封装供API使用的组件，
- * 为组件添加API，参数等
+ * 为组件添加API，参数等，因组件式 会扩展相关API 以适配相关JS操作
  */
 
 import Notification from './notification.vue';
