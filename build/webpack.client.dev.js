@@ -9,7 +9,7 @@ const webpack = require('webpack');
 const merge = require('webpack-merge');
 const baseConfig = require('./webpack.config.base');
 const clientConfig = require('./webpack.config.client');
-
+const path = require('path');
 
 // webpack --watch
 // webpack-dev-server
@@ -35,6 +35,11 @@ const devServer = {
 
 
 var config = merge(baseConfig, clientConfig, {
+    resolve: {
+        alias: {
+            'vue': path.join(__dirname, '../node_modules/vue/dist/vue.js')
+        }
+    },
     // 比较准确和快
     // https://www.cnblogs.com/wangyingblog/p/7027540.html
     // vue-cli dev 使用  cheap-module-eval-source-map  cheap-module-source-map

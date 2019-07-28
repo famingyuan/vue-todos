@@ -31,6 +31,9 @@
         <button @click="showNotification">
           Show Notification
         </button>
+        <button @click="showOrgNotification">
+          Show Org Notification
+        </button>
       </div>
     </div>
   </div>
@@ -50,7 +53,17 @@ export default {
     },
     methods: {
         showNotification () {
-            this.$notify();
+            this.$notify({
+                autoClose: 3000,
+                content: Math.random() + ' from notify api.',
+                verticalPos: 200
+            });
+        },
+        showOrgNotification () {
+            this.$orgNotify({
+                autoClose: 3000,
+                content: 'xxx'
+            });
         }
     }
 };

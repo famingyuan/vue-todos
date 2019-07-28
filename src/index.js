@@ -6,6 +6,7 @@ import CreateRooter from './config/router/index';
 import CreateStore from './store/store.js';
 
 import NotificationPlugin from '@/component/notification/index.js';
+// import OrgNotificationPlugin from '@/component/notification2/index.js';
 
 import './less/global.less';
 
@@ -14,6 +15,7 @@ Vue.use(Vuex);
 
 // 使用自定义插件
 Vue.use(NotificationPlugin);
+// Vue.use(OrgNotificationPlugin);
 
 const router = CreateRooter();
 const store = CreateStore();

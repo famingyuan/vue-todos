@@ -1,0 +1,21 @@
+// 进入前，离开后
+.fade-enter, // 在元素被插入之后下一帧 删除
+.fade-leave-to {
+    opacity: 0;
+}
+
+// 这个类可以被用来定义进入过渡的过程时间，延迟和曲线函数。
+// 在元素被插入之前生效，在过渡/动画完成之后移除
+.fade-enter-active {
+    transition: all .8s ease;
+}
+// 这个类可以被用来定义离开过渡的过程时间，延迟和曲线函数。
+// 在离开过渡被触发时立刻生效，在过渡/动画完成之后移除
+.fade-leave-active {
+    transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+
+// 2.1.8版及以上 定义进入过渡的结束状态 在元素被插入之后下一帧生效
+.fade-enter-to{
+    opacity: 1;
+}

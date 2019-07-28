@@ -29,29 +29,28 @@ function removeNotification (notification) {
         throw new Error('未找到 index = ' + index);
     }
 
-    var adx = notification.vm.$el._offsetHeight + 20;
+    var adx = notification.vm.height + 20;
     for (var i = index, len = instanceList.length; i < len; i++) {
         instanceList[i].vm.verticalPos -= adx;
     }
 }
 
 function notify (options) {
-    let verticalPos = 20;
-
-    instanceList.forEach((item) => {
-        verticalPos += item.vm.$el.offsetHeight + 20;
-    });
+    let { autoClose, ...rest } = options || {};
 
     let instance = new NotificationConstructor({
         propsData: {
             content: 'notification ' + seed,
-            verticalPos: verticalPos
+            ...rest
+        },
+        data: {
+            autoClose: autoClose
         }
     });
 
-    instance.id = prefix + (seed++);
+    console.log(rest);
 
-    instanceList.push(instance);
+    instance.id = prefix + (seed++);
 
     // 挂载到文档外部，只是生成了html代码，也就是存在 节点的，只是没有append到页面上
     // 且 返回 vm - 实例自身
@@ -61,14 +60,26 @@ function notify (options) {
     console.log('vm === instance ===> ' + (vm === instance));
 
     instance.vm = vm;
-
     // 真正将组件挂载到文档上
     document.body.appendChild(instance.vm.$el);
+    // 将组件显示出来 此时会出发 enter
+    instance.vm.visible = true;
+
+    // 调整坐标位置
+    let newVerticalPos = 20;
+    // 只要显示出来了 肯定可以取得高度 无论是否动画执行完毕
+    instanceList.forEach((item) => {
+        newVerticalPos += item.vm.$el.offsetHeight + 20;
+    });
+    console.log('newVerticalPos -->' + newVerticalPos);
+
+    instance.vm.verticalPos = newVerticalPos;
+
+    instanceList.push(instance);
 
     // 只是点击了关闭
     instance.vm.$on('close', () => {
         console.log('-----close -----');
-        instance.vm.$el._offsetHeight = instance.vm.$el.offsetHeight;
         instance.vm.visible = false;
     });
 
