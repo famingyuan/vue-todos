@@ -5,6 +5,8 @@ import VueRouter from 'vue-router';
 import CreateRooter from './config/router/index';
 import CreateStore from './store/store.js';
 
+import TabsPlugin from '@/component/tabs/index.js';
+
 import NotificationPlugin from '@/component/notification/index.js';
 // import OrgNotificationPlugin from '@/component/notification2/index.js';
 
@@ -16,6 +18,7 @@ Vue.use(Vuex);
 // 使用自定义插件
 Vue.use(NotificationPlugin);
 // Vue.use(OrgNotificationPlugin);
+Vue.use(TabsPlugin);
 
 const router = CreateRooter();
 const store = CreateStore();

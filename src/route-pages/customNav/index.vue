@@ -4,6 +4,9 @@
       app
     </router-link>
 
+    <router-link :to="{name:'tabs'}">
+      测试Tab
+    </router-link>
     <router-link :to="{name:'notification'}">
       测试notification 组件封装
     </router-link>

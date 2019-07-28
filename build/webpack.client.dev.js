@@ -37,7 +37,7 @@ const devServer = {
 var config = merge(baseConfig, clientConfig, {
     resolve: {
         alias: {
-            'vue': path.join(__dirname, '../node_modules/vue/dist/vue.js')
+            // 'vue': path.join(__dirname, '../src/lib/vue/vue.js')
         }
     },
     // 比较准确和快
