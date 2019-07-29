@@ -55,7 +55,7 @@ var config = merge(baseConfig, clientConfig, {
         new HtmlWebpackPlugin({
             // 默认情况下 生成 dist/index.html 文件
             // 也可以单独指定采用哪个模板html作为基础 加入相应的js、css
-            template: './src/index.html'  // 模板
+            template: path.resolve(__dirname, '../src/index.html')  // 模板
         }),
         // 热加载功能  vue-loader 已经处理了 热加载细节
         // 需要自定义 热加载过程 ，但是vue-loader已经处理了
