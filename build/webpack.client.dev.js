@@ -29,8 +29,12 @@ const devServer = {
     // 如果不配置fallback 当前端直接f5刷新时，后端服务器匹配不到该路由 将导致报错
     // 配置了之后 则由index.html 前端路由做管控了 ，执行相应的前端路由跳转
     historyApiFallback: {
-        index: '/index.html'
-    }
+        index: 'index.html'
+    },
+    // 这两个玩意儿 不知道咋回事 默认情况下 应该不需要配置，
+    // windows下抽风 可启用下 跑通之后 关闭 即可 （WTF: 关闭后他娘的重新 `run dev` 又可以了）
+    // contentBase: '/', 
+    // publicPath: '/'
 };
 
 
