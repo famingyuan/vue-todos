@@ -28,14 +28,19 @@ const devServer = {
     // 当使用history模式时，前端路由地址格式为 /path1/path2 ，但是后端找不到对应的路径 所以会出错
     // 如果不配置fallback 当前端直接f5刷新时，后端服务器匹配不到该路由 将导致报错
     // 配置了之后 则由index.html 前端路由做管控了 ，执行相应的前端路由跳转
+
+    // 注意: 路径需要跟着 devServer.publicPath 变。
     historyApiFallback: {
-        index: '/index.html'
+        index: '/index.html' // 跟随 devServer.publicPath 变
     },
-    // 这两个玩意儿 不知道咋回事 默认情况下 应该不需要配置，
-    contentBase: '../src/static/', 
+    // 当publicPath 不配置为 / 时，   **待研究**
+    // 需要配置 contentBase 以指定静态资源所存储的位置且为操作系统绝对路径
+    // contentBase:path.join(__dirname, "../dist/hello/"),
+    
     // The bundled files will be available in the browser under this path.
     // Make sure devServer.publicPath always starts and ends with a forward slash.
-    publicPath: '/hello/'
+    // 配置为： /hello/ 将覆盖 output.publicPath ， 使内存中 输出的文件目录 转存到 /hello/ 下。
+    publicPath: '/'
 };
 
 
