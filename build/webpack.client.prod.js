@@ -11,7 +11,7 @@ const clientConfig = require('./webpack.config.client');
 // 用于生成html模板文件或者将资源自动添加到指定的模板文件中
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-// production环境必须使用 chunkhash
+// production环境必须使用 contenthash
 // 1. hash 整个工程的hash ,一个文件变，就变
 // 2. trunkhash 为单个模块的hash
 // 用hash时app和vendor的hash码是一样的了,这样每次业务代码更新,vendor也会更新,也就没有了意义
@@ -20,7 +20,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 var config = merge(baseConfig, clientConfig, {
     output: {
-        filename: '[name].[chunkhash:8].js'
+        filename: '[name].[contenthash:8].js'
     },
     plugins: [
         new HtmlWebpackPlugin({
