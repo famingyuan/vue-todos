@@ -9,7 +9,7 @@ const webpack = require('webpack');
 const merge = require('webpack-merge');
 const baseConfig = require('./webpack.config.base');
 const clientConfig = require('./webpack.config.client');
-
+const path = require('path');
 
 // webpack --watch
 // webpack-dev-server
@@ -28,13 +28,28 @@ const devServer = {
     // 当使用history模式时，前端路由地址格式为 /path1/path2 ，但是后端找不到对应的路径 所以会出错
     // 如果不配置fallback 当前端直接f5刷新时，后端服务器匹配不到该路由 将导致报错
     // 配置了之后 则由index.html 前端路由做管控了 ，执行相应的前端路由跳转
+
+    // 注意: 路径需要跟着 devServer.publicPath 变。
     historyApiFallback: {
-        // index: '/index.html'
-    }
+        index: '/index.html' // 跟随 devServer.publicPath 变
+    },
+    // 当publicPath 不配置为 / 时，   **待研究**
+    // 需要配置 contentBase 以指定静态资源所存储的位置且为操作系统绝对路径
+    // contentBase:path.join(__dirname, "../dist/hello/"),
+    
+    // The bundled files will be available in the browser under this path.
+    // Make sure devServer.publicPath always starts and ends with a forward slash.
+    // 配置为： /hello/ 将覆盖 output.publicPath ， 使内存中 输出的文件目录 转存到 /hello/ 下。
+    publicPath: '/'
 };
 
 
 var config = merge(baseConfig, clientConfig, {
+    resolve: {
+        alias: {
+            // 'vue': path.join(__dirname, '../src/lib/vue/vue.js')
+        }
+    },
     // 比较准确和快
     // https://www.cnblogs.com/wangyingblog/p/7027540.html
     // vue-cli dev 使用  cheap-module-eval-source-map  cheap-module-source-map
@@ -50,7 +65,7 @@ var config = merge(baseConfig, clientConfig, {
         new HtmlWebpackPlugin({
             // 默认情况下 生成 dist/index.html 文件
             // 也可以单独指定采用哪个模板html作为基础 加入相应的js、css
-            template: './src/index.html'  // 模板
+            template: path.resolve(__dirname, '../src/index.html')  // 模板
         }),
         // 热加载功能  vue-loader 已经处理了 热加载细节
         // 需要自定义 热加载过程 ，但是vue-loader已经处理了

@@ -6,18 +6,12 @@
         "standard",
         "plugin:vue/recommended"
     ],
-    "plugins": [
-        "html",
-        "vue"
-    ],
+    "plugins": ["html", "vue"],
     "parserOptions": {
         "parser": "babel-eslint"
     },
     "rules": {
-        "indent": [
-            "error",
-            4
-        ],
+        "indent": ["error", 4],
         "semi": [
             "error",
             "always",
